@@ -6,6 +6,7 @@ import {
   projects,
   services,
 } from "../data/content";
+import MotionCard from "./MotionCard";
 import Reveal from "./Reveal";
 
 export function Stack() {
@@ -56,7 +57,7 @@ export function Work() {
         <div className="timeline">
           {experience.map((job, i) => (
             <Reveal key={job.company} delay={i * 80}>
-              <article className="job">
+              <MotionCard tilt={4} className="job-card">
                 <div className="job__head">
                   <h3 className="job__company">{job.company}</h3>
                   <span className="job__period" data-current={job.current}>
@@ -69,7 +70,7 @@ export function Work() {
                     <li key={p}>{p}</li>
                   ))}
                 </ul>
-              </article>
+              </MotionCard>
             </Reveal>
           ))}
         </div>
@@ -103,15 +104,10 @@ export function Projects() {
           </p>
         </Reveal>
 
-        <div className="projects">
+        <div className="project-grid">
           {projects.map((p, i) => (
             <Reveal key={p.name} delay={i * 70}>
-              <a
-                className="project"
-                href={p.href}
-                target="_blank"
-                rel="noreferrer noopener"
-              >
+              <MotionCard href={p.href} className="project">
                 <div className="project__head">
                   <h3 className="project__name">{p.name}</h3>
                   <span className="project__arrow" aria-hidden="true">
@@ -124,7 +120,7 @@ export function Projects() {
                     <span key={t}>{t}</span>
                   ))}
                 </div>
-              </a>
+              </MotionCard>
             </Reveal>
           ))}
         </div>
@@ -142,19 +138,19 @@ export function Services() {
           <h2 className="section__title">How I can help</h2>
         </Reveal>
 
-        <Reveal>
-          <div className="services">
-            {services.map((s, i) => (
-              <div className="service" key={s.title}>
+        <div className="service-grid">
+          {services.map((s, i) => (
+            <Reveal key={s.title} delay={i * 55}>
+              <MotionCard tilt={5} className="service">
                 <p className="service__num">
                   {String(i + 1).padStart(2, "0")}
                 </p>
                 <h3 className="service__title">{s.title}</h3>
                 <p className="service__desc">{s.desc}</p>
-              </div>
-            ))}
-          </div>
-        </Reveal>
+              </MotionCard>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );

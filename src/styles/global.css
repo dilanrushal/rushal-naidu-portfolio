@@ -560,19 +560,6 @@ button {
   gap: 22px;
 }
 
-.job {
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--surface);
-  padding: 30px 28px;
-  transition: border-color 0.25s ease, transform 0.25s ease;
-}
-
-.job:hover {
-  border-color: var(--line-strong);
-  transform: translateY(-3px);
-}
-
 .job__head {
   display: flex;
   justify-content: space-between;
@@ -665,28 +652,6 @@ button {
 
 /* ============================= projects ============================= */
 
-.projects {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 22px;
-}
-
-.project {
-  display: block;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--surface);
-  padding: 28px;
-  transition: border-color 0.25s ease, transform 0.25s ease,
-    background 0.25s ease;
-}
-
-.project:hover {
-  border-color: var(--line-strong);
-  background: var(--surface-2);
-  transform: translateY(-4px);
-}
-
 .project__head {
   display: flex;
   justify-content: space-between;
@@ -704,7 +669,8 @@ button {
   transition: transform 0.25s ease, color 0.25s ease;
 }
 
-.project:hover .project__arrow {
+.mcard:hover .project__arrow,
+.mcard:focus-visible .project__arrow {
   color: var(--amber);
   transform: translate(3px, -3px);
 }
@@ -730,33 +696,7 @@ button {
   border-radius: 100px;
 }
 
-@media (max-width: 720px) {
-  .projects {
-    grid-template-columns: 1fr;
-  }
-}
-
 /* ============================= services ============================= */
-
-.services {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--line);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  overflow: hidden;
-}
-
-.service {
-  background: var(--bg);
-  padding: 30px 26px;
-  transition: background 0.25s ease;
-}
-
-.service:hover {
-  background: var(--surface);
-}
 
 .service__num {
   font-family: var(--mono);
@@ -773,18 +713,6 @@ button {
 .service__desc {
   color: var(--muted);
   font-size: 14.5px;
-}
-
-@media (max-width: 900px) {
-  .services {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 600px) {
-  .services {
-    grid-template-columns: 1fr;
-  }
 }
 
 /* ============================= contact ============================= */
@@ -887,5 +815,178 @@ button {
   .slab {
     animation: none;
     transform: none;
+  }
+}
+
+/* ===================== animated motion cards ===================== */
+
+@property --spin {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.mcard {
+  --rx: 0deg;
+  --ry: 0deg;
+  --mx: 50%;
+  --my: 50%;
+  --glow: rgba(232, 164, 76, 0.16);
+
+  position: relative;
+  display: block;
+  isolation: isolate;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  transform: perspective(1000px) rotateX(var(--rx)) rotateY(var(--ry));
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease, box-shadow 0.45s ease;
+  will-change: transform;
+}
+
+.mcard:hover,
+.mcard:focus-visible {
+  border-color: transparent;
+  box-shadow: 0 18px 40px -22px rgba(0, 0, 0, 0.85);
+  transition: transform 0.12s ease-out, border-color 0.35s ease,
+    box-shadow 0.45s ease;
+}
+
+/* rotating conic gradient ring, drawn as a 1px masked frame */
+.mcard__border {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--spin),
+    transparent 0deg,
+    var(--amber) 55deg,
+    var(--mint) 115deg,
+    transparent 200deg,
+    transparent 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.mcard:hover .mcard__border,
+.mcard:focus-visible .mcard__border {
+  opacity: 1;
+  animation: spin-ring 4.5s linear infinite;
+}
+
+@keyframes spin-ring {
+  to {
+    --spin: 360deg;
+  }
+}
+
+/* radial spotlight that follows the cursor */
+.mcard__glow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    340px circle at var(--mx) var(--my),
+    var(--glow),
+    transparent 62%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.mcard:hover .mcard__glow,
+.mcard:focus-visible .mcard__glow {
+  opacity: 1;
+}
+
+/* content sits above the effects and lifts slightly in 3D */
+.mcard__body {
+  position: relative;
+  z-index: 2;
+  display: block;
+  padding: 28px;
+  transform: translateZ(34px);
+}
+
+/* project cards */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+}
+
+.project-grid .mcard__body {
+  min-height: 168px;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-grid .project__tech {
+  margin-top: auto;
+}
+
+@media (max-width: 720px) {
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* service cards keep a tighter, cooler glow */
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.service-grid .mcard {
+  --glow: rgba(99, 210, 178, 0.12);
+}
+
+.service-grid .mcard__body {
+  padding: 26px;
+}
+
+@media (max-width: 900px) {
+  .service-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .service-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* job cards */
+.job-card .mcard__body {
+  padding: 30px 28px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mcard {
+    transform: none !important;
+    transition: border-color 0.2s ease;
+  }
+  .mcard__body {
+    transform: none;
+  }
+  .mcard:hover .mcard__border,
+  .mcard:focus-visible .mcard__border {
+    animation: none;
+    opacity: 0.6;
   }
 }

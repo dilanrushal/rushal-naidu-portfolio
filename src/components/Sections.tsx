@@ -6,6 +6,7 @@ import {
   projects,
   services,
 } from "../data/content";
+import GitHubCard from "./GitHubCard";
 import MotionCard from "./MotionCard";
 import Reveal from "./Reveal";
 
@@ -102,6 +103,10 @@ export function Projects() {
             Public work on GitHub. Client and enterprise work is under NDA —
             happy to talk through it directly.
           </p>
+        </Reveal>
+
+        <Reveal>
+          <GitHubCard />
         </Reveal>
 
         <div className="project-grid">

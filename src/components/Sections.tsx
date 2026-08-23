@@ -107,7 +107,11 @@ export function Projects() {
         <div className="project-grid">
           {projects.map((p, i) => (
             <Reveal key={p.name} delay={i * 70}>
-              <MotionCard href={p.href} className="project">
+              <MotionCard
+                href={p.href}
+                className="project"
+                marquee="View on GitHub"
+              >
                 <div className="project__head">
                   <h3 className="project__name">{p.name}</h3>
                   <span className="project__arrow" aria-hidden="true">

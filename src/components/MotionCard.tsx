@@ -12,6 +12,8 @@ type Props = {
   href?: string;
   /** Max tilt in degrees. 0 disables tilt but keeps the spotlight. */
   tilt?: number;
+  /** Text for the marquee strip that slides up on hover. */
+  marquee?: string;
   style?: CSSProperties;
 };
 
@@ -27,6 +29,7 @@ export default function MotionCard({
   className = "",
   href,
   tilt = 7,
+  marquee,
   style,
 }: Props) {
   const ref = useRef<HTMLElement>(null);
@@ -86,7 +89,17 @@ export default function MotionCard({
     <>
       <span className="mcard__border" aria-hidden="true" />
       <span className="mcard__glow" aria-hidden="true" />
+      <span className="mcard__shine" aria-hidden="true" />
       <span className="mcard__body">{children}</span>
+      {marquee ? (
+        <span className="mcard__marquee" aria-hidden="true">
+          <span className="mcard__marquee-track">
+            {Array.from({ length: 6 }, (_, i) => (
+              <span key={i}>{marquee}</span>
+            ))}
+          </span>
+        </span>
+      ) : null}
     </>
   );
 

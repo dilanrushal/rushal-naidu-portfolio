@@ -839,11 +839,18 @@ button {
   border-radius: var(--radius);
   background: var(--surface);
   border: 1px solid var(--line);
-  transform: perspective(1000px) rotateX(var(--rx)) rotateY(var(--ry));
+  transform: perspective(1000px) rotateX(var(--rx)) rotateY(var(--ry))
+    scale(var(--scale, 1));
   transform-style: preserve-3d;
-  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+  /* overshoot spring on return to rest */
+  transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1),
     border-color 0.35s ease, box-shadow 0.45s ease;
   will-change: transform;
+}
+
+.mcard:active {
+  --scale: 0.985;
+  transition: transform 0.12s ease-out;
 }
 
 .mcard:hover,
@@ -988,5 +995,112 @@ button {
   .mcard:focus-visible .mcard__border {
     animation: none;
     opacity: 0.6;
+  }
+}
+
+
+/* ---- specular shine sweep, tracks the pointer ---- */
+.mcard__shine {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.mcard__shine::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: linear-gradient(
+    105deg,
+    transparent 38%,
+    rgba(255, 255, 255, 0.09) 46%,
+    rgba(255, 255, 255, 0.16) 50%,
+    rgba(255, 255, 255, 0.09) 54%,
+    transparent 62%
+  );
+  transform: translateX(calc(var(--mx, 50%) * 0.28 - 30%));
+  transition: transform 0.18s ease-out;
+}
+
+.mcard:hover .mcard__shine,
+.mcard:focus-visible .mcard__shine {
+  opacity: 1;
+}
+
+/* ---- marquee strip that slides up on hover ---- */
+.mcard__marquee {
+  border-radius: 0 0 var(--radius) var(--radius);
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  height: 38px;
+  background: var(--amber);
+  color: #14100a;
+  transform: translateY(100%);
+  transition: transform 0.42s cubic-bezier(0.34, 1.4, 0.64, 1);
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.mcard:hover .mcard__marquee,
+.mcard:focus-visible .mcard__marquee {
+  transform: translateY(0);
+}
+
+.mcard__marquee-track {
+  display: flex;
+  flex: none;
+  gap: 26px;
+  padding-left: 26px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  animation: marquee-slide 9s linear infinite;
+  animation-play-state: paused;
+}
+
+.mcard:hover .mcard__marquee-track,
+.mcard:focus-visible .mcard__marquee-track {
+  animation-play-state: running;
+}
+
+.mcard__marquee-track > span::after {
+  content: " •";
+  opacity: 0.5;
+}
+
+@keyframes marquee-slide {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* leave room so the strip never covers content */
+.project-grid .mcard__body {
+  padding-bottom: 52px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mcard__shine,
+  .mcard__marquee {
+    transition: none;
+  }
+  .mcard__marquee-track {
+    animation: none;
+  }
+  .mcard:active {
+    --scale: 1;
   }
 }

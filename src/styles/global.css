@@ -14,6 +14,16 @@
   --amber: #e8b782;
   --amber-soft: rgba(232, 183, 130, 0.16);
   --mint: #d9a06a;
+  --mint-soft: rgba(217, 160, 106, 0.12);
+  --mint-line: rgba(217, 160, 106, 0.36);
+  --nav-bg: rgba(83, 57, 42, 0.82);
+  --nav-bg-solid: rgba(83, 57, 42, 0.98);
+  --glow-strong: rgba(232, 183, 130, 0.12);
+  --glow-fade: rgba(232, 183, 130, 0);
+  --chip-bg: rgba(250, 245, 239, 0.07);
+  --shadow-card: rgba(30, 19, 12, 0.5);
+  --shine: rgba(255, 249, 240, 0.07);
+  --shine-hot: rgba(232, 183, 130, 0.12);
 
   --display: "Bricolage Grotesque", system-ui, sans-serif;
   --body: "Inter", system-ui, sans-serif;
@@ -143,7 +153,7 @@ button {
   position: fixed;
   inset: 0 0 auto 0;
   z-index: 50;
-  background: rgba(83, 57, 42, 0.82);
+  background: var(--nav-bg);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid transparent;
   transition: border-color 0.3s ease, background 0.3s ease;
@@ -176,7 +186,7 @@ button {
   height: 7px;
   border-radius: 50%;
   background: var(--mint);
-  box-shadow: 0 0 0 4px rgba(217, 160, 106, 0.18);
+  box-shadow: 0 0 0 4px var(--mint-soft);
 }
 
 .nav__links {
@@ -222,7 +232,7 @@ button {
     flex-direction: column;
     gap: 0;
     padding: 8px var(--gutter) 20px;
-    background: rgba(83, 57, 42, 0.98);
+    background: var(--nav-bg-solid);
     border-bottom: 1px solid var(--line);
   }
   .nav[data-open="true"] .nav__links a {
@@ -252,8 +262,8 @@ button {
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    rgba(232, 183, 130, 0.12) 0%,
-    rgba(232, 183, 130, 0) 68%
+    var(--glow-strong) 0%,
+    var(--glow-fade) 68%
   );
   pointer-events: none;
 }
@@ -273,8 +283,8 @@ button {
   font-family: var(--mono);
   font-size: 12px;
   color: var(--mint);
-  border: 1px solid rgba(217, 160, 106, 0.36);
-  background: rgba(217, 160, 106, 0.1);
+  border: 1px solid var(--mint-line);
+  background: var(--mint-soft);
   padding: 6px 13px;
   border-radius: 100px;
   margin-bottom: 26px;
@@ -442,7 +452,7 @@ button {
   font-family: var(--mono);
   font-size: 11.5px;
   color: var(--muted);
-  background: rgba(250, 245, 239, 0.07);
+  background: var(--chip-bg);
   border: 1px solid var(--line);
   padding: 3px 9px;
   border-radius: 100px;
@@ -585,8 +595,8 @@ button {
 
 .job__period[data-current="true"] {
   color: var(--mint);
-  border-color: rgba(217, 160, 106, 0.38);
-  background: rgba(217, 160, 106, 0.1);
+  border-color: var(--mint-line);
+  background: var(--mint-soft);
 }
 
 .job__role {
@@ -832,7 +842,7 @@ button {
   --ry: 0deg;
   --mx: 50%;
   --my: 50%;
-  --glow: rgba(232, 183, 130, 0.14);
+  --glow: var(--amber-soft);
 
   position: relative;
   display: block;
@@ -857,7 +867,7 @@ button {
 .mcard:hover,
 .mcard:focus-visible {
   border-color: transparent;
-  box-shadow: 0 18px 40px -22px rgba(30, 19, 12, 0.5);
+  box-shadow: 0 18px 40px -22px var(--shadow-card);
   transition: transform 0.12s ease-out, border-color 0.35s ease,
     box-shadow 0.45s ease;
 }
@@ -960,7 +970,7 @@ button {
 }
 
 .service-grid .mcard {
-  --glow: rgba(217, 160, 106, 0.14);
+  --glow: var(--mint-soft);
 }
 
 .service-grid .mcard__body {
@@ -1019,9 +1029,9 @@ button {
   background: linear-gradient(
     105deg,
     transparent 38%,
-    rgba(255, 249, 240, 0.07) 46%,
-    rgba(232, 183, 130, 0.12) 50%,
-    rgba(255, 249, 240, 0.07) 54%,
+    var(--shine) 46%,
+    var(--shine-hot) 50%,
+    var(--shine) 54%,
     transparent 62%
   );
   transform: translateX(calc(var(--mx, 50%) * 0.28 - 30%));
@@ -1247,7 +1257,7 @@ button {
   border: 1px solid var(--line-strong);
   background: var(--surface);
   color: var(--ink);
-  box-shadow: 0 6px 18px -10px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 6px 18px -10px var(--shadow-card);
   transition: border-color 0.2s ease;
 }
 
@@ -1261,7 +1271,7 @@ button {
   border-radius: 14px;
   border: 1px solid var(--line);
   background: var(--surface);
-  box-shadow: 0 18px 42px -20px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 18px 42px -20px var(--shadow-card);
   display: grid;
   gap: 4px;
 }

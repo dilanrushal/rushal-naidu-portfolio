@@ -1033,13 +1033,21 @@ button {
 }
 
 /* ---- marquee strip that slides up on hover ---- */
+/* clips the sliding bar without putting overflow on the preserve-3d card */
+.mcard__clip {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: inherit;
+  overflow: hidden;
+  pointer-events: none;
+}
+
 .mcard__marquee {
-  border-radius: 0 0 var(--radius) var(--radius);
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 3;
   display: flex;
   align-items: center;
   height: 38px;

@@ -91,28 +91,32 @@ export const education = [
 
 export const projects = [
   {
-    name: "Shopping Cart",
-    desc: "Cart state, line items, and totals handled in vanilla JavaScript.",
-    tech: ["JavaScript"],
-    href: "https://github.com/dilanrushal/ShoppingCart",
+    name: "Hotel Ordering",
+    desc: "Takeaway ordering with WhatsApp order notifications. Serverless backend on AWS, prices recomputed server-side.",
+    tech: ["React 19", "TypeScript", "AWS CDK", "Lambda", "DynamoDB"],
+    href: "https://hotel-ordering-dusky.vercel.app",
+    cta: "View live site",
   },
   {
     name: "Weather App",
-    desc: "React client that fetches and renders live forecast data.",
-    tech: ["React", "API"],
-    href: "https://github.com/dilanrushal/react-weather-app1",
+    desc: "Five-day forecast with geolocation, unit toggle, and distinct error states for every failure mode.",
+    tech: ["React 19", "TypeScript", "Vite"],
+    href: "https://dilanrushal.github.io/react-weather-app1/",
+    cta: "View live site",
   },
   {
     name: "Music Player",
-    desc: "Playback controls, track list, and player state in JavaScript.",
+    desc: "Playback controls, track list, and player state handled in JavaScript.",
     tech: ["JavaScript"],
     href: "https://github.com/dilanrushal/Music",
+    cta: "View source",
   },
   {
-    name: "Portfolio",
-    desc: "This site — React 19 and TypeScript, no UI framework.",
+    name: "This Portfolio",
+    desc: "Hand-built design system, no UI or CSS framework. Cursor-tracked cards with animated gradient borders.",
     tech: ["React 19", "TypeScript", "Vite"],
     href: "https://github.com/dilanrushal/rushal-naidu-portfolio",
+    cta: "View source",
   },
 ];
 

@@ -115,7 +115,7 @@ export function Projects() {
               <MotionCard
                 href={p.href}
                 className="project"
-                marquee="View on GitHub"
+                marquee={p.cta}
               >
                 <div className="project__head">
                   <h3 className="project__name">{p.name}</h3>

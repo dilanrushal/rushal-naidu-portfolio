@@ -92,11 +92,15 @@ export default function MotionCard({
       <span className="mcard__shine" aria-hidden="true" />
       <span className="mcard__body">{children}</span>
       {marquee ? (
-        <span className="mcard__marquee" aria-hidden="true">
-          <span className="mcard__marquee-track">
-            {Array.from({ length: 6 }, (_, i) => (
-              <span key={i}>{marquee}</span>
-            ))}
+        // Outer span clips; inner span slides. Clipping here rather than on
+        // the card keeps the card's preserve-3d intact.
+        <span className="mcard__clip" aria-hidden="true">
+          <span className="mcard__marquee">
+            <span className="mcard__marquee-track">
+              {Array.from({ length: 6 }, (_, i) => (
+                <span key={i}>{marquee}</span>
+              ))}
+            </span>
           </span>
         </span>
       ) : null}

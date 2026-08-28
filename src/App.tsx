@@ -1,4 +1,5 @@
 import Nav from "./components/Nav";
+import ThemePicker from "./components/ThemePicker";
 import Hero from "./components/Hero";
 import { Contact, Footer, Projects, Services, Stack, Work } from "./components/Sections";
 
@@ -15,6 +16,7 @@ export default function App() {
         <Contact />
       </main>
       <Footer />
+      <ThemePicker />
     </>
   );
 }
